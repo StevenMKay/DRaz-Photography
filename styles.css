@@ -231,6 +231,49 @@ main h2::after {
     position: relative;
 }
 
+/* Photo Share Overlay - Hidden by default */
+.photo-share-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.photo-card:hover .photo-share-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.photo-share-overlay button {
+    background: rgba(74, 63, 53, 0.95);
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.photo-share-overlay button:hover {
+    transform: scale(1.2);
+    background: var(--accent-gold);
+}
+
+/* Darken photo on hover to make buttons more visible */
+.photo-card:hover img {
+    filter: brightness(0.6);
+    transform: scale(1.05);
+}
+
 .photo-card::before {
     content: '';
     position: absolute;
