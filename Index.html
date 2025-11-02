@@ -3,441 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Library - DRaz Photography</title>
+    <title>DRaz Photography - Professional Stock Photos</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/StevenMKay/DRaz-Photography/58aa7fbc87e097d961988c412141c83b74474ff5/Icons/Draz%20Site%20Icon.png">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Page-specific styling */
+        /* Page-specific overrides if needed */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Georgia', serif;
-            background: #f5f1ed;
-            color: #3d3935;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #4a3f35 0%, #6b5d52 100%);
-            padding: 30px 40px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .header-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #f5f1ed;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        nav a {
-            color: #f5f1ed;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-            border-bottom: 2px solid transparent;
-            padding-bottom: 5px;
-        }
-
-        nav a:hover {
-            color: #d4c5b9;
-            border-bottom: 2px solid #d4c5b9;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 40px;
-        }
-
-        .page-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .page-title h1 {
-            font-size: 2.8rem;
-            color: #4a3f35;
-            margin-bottom: 10px;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-
-        .filter-section h3 {
-            font-size: 1.5rem;
-            color: #4a3f35;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #8b7355;
-            padding-bottom: 10px;
-        }
-
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .filter-group label {
-            font-weight: bold;
-            color: #4a3f35;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .filter-group select {
-            padding: 12px;
-            border: 2px solid #d4c5b9;
-            border-radius: 6px;
-            font-size: 1rem;
-            background: white;
-            color: #3d3935;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-
-        .filter-group select:focus {
-            outline: none;
-            border-color: #8b7355;
-        }
-
-        .search-box {
-            grid-column: 1 / -1;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #d4c5b9;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            transition: border-color 0.3s;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #8b7355;
-        }
-
-        .filter-buttons {
-            grid-column: 1 / -1;
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Georgia', serif;
-        }
-
-        .btn-apply {
-            background: #8b7355;
-            color: white;
-            flex: 1;
-        }
-
-        .btn-apply:hover {
-            background: #6b5d52;
-            transform: translateY(-2px);
-        }
-
-        .btn-reset {
-            background: #d4c5b9;
-            color: #4a3f35;
-            padding: 12px 25px;
-        }
-
-        .btn-reset:hover {
-            background: #c4b5a9;
-        }
-
-        /* Results Info */
-        .results-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .results-count {
-            font-size: 1.1rem;
-            color: #4a3f35;
-        }
-
-        .sort-by {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sort-by select {
-            padding: 8px 15px;
-            border: 2px solid #d4c5b9;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        /* Photo Grid */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .photo-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: white;
-            cursor: pointer;
-        }
-
-        .photo-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .photo-info {
-            padding: 15px;
-            background: white;
-        }
-
-        .photo-info h3 {
-            font-size: 1.1rem;
-            color: #4a3f35;
-            margin-bottom: 8px;
-        }
-
-        .photo-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #6b5d52;
-            margin-bottom: 10px;
-        }
-
-        .photo-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .tag {
-            background: #8b7355;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #4a3f35;
-            color: #d4c5b9;
-            text-align: center;
-            padding: 30px;
-            margin-top: 60px;
-        }
-
-        footer a {
-            color: #d4c5b9;
-            text-decoration: none;
-            margin: 0 15px;
-        }
-
-        footer a:hover {
-            color: white;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            nav a {
-                margin: 0 15px;
-            }
-
-            .container {
-                padding: 20px;
-            }
-
-            .filter-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .results-info {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .photo-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <div class="header-content">
-            <div class="logo">David Raz Photography</div>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="library.html">Photo Library</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
+        <nav>
+            <h1>
+                <img src="https://raw.githubusercontent.com/StevenMKay/DRaz-Photography/58aa7fbc87e097d961988c412141c83b74474ff5/Icons/Draz%20Site%20Icon.png" alt="DRaz Photography">
+                David Raz Photography
+            </h1>
+            <div class="search-container">
+                <input type="text" id="headerSearch" placeholder="Search photos...">
+            </div>
+            <a href="Index.html">Home</a>
+            <a href="library.html">Photo Library</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
+    <!-- Hero Section -->
+    <section class="hero" style="background: linear-gradient(rgba(61, 57, 53, 0.3), rgba(61, 57, 53, 0.3)), url('https://raw.githubusercontent.com/StevenMKay/DRaz-Photography/b1709c534215cb23b3bc1648fdc32416477c981f/Photos/Home%20Page%20Background.jpg') center/cover;">
+        <div class="hero-content">
+            <h2>Capturing Moments</h2>
+            <p>Professional Stock Photography for Your Creative Projects</p>
+        </div>
+    </section>
+
     <!-- Main Content -->
-    <div class="container">
-        <h2 style="text-align: center;">Photo Library</h2>
-        <p style="text-align: center; color: var(--medium-brown); font-size: 1.1rem; margin-bottom: 3rem;">Search and filter thousands of professional stock photos</p>
-
-        <!-- Filter Section -->
-        <div class="filters">
-            <h3>🔍 Search & Filter</h3>
-            <div class="filter-group">
-                <label>Search</label>
-                <input type="text" id="searchInput" placeholder="Search by keyword, theme, or description...">
-            </div>
-
-            <div class="filter-group">
-                    <label>Color</label>
-                    <select id="colorFilter">
-                        <option value="all">All Colors</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                        <option value="red">Red</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="orange">Orange</option>
-                        <option value="purple">Purple</option>
-                        <option value="pink">Pink</option>
-                        <option value="warm">Warm Tones</option>
-                        <option value="cool">Cool Tones</option>
-                        <option value="neutral">Neutral</option>
-                        <option value="black-white">Black & White</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Theme</label>
-                    <select id="themeFilter">
-                        <option value="all">All Themes</option>
-                        <option value="nature">Nature</option>
-                        <option value="landscape">Landscape</option>
-                        <option value="portrait">Portrait</option>
-                        <option value="urban">Urban</option>
-                        <option value="abstract">Abstract</option>
-                        <option value="wildlife">Wildlife</option>
-                        <option value="architecture">Architecture</option>
-                        <option value="food">Food</option>
-                        <option value="travel">Travel</option>
-                        <option value="business">Business</option>
-                        <option value="technology">Technology</option>
-                        <option value="lifestyle">Lifestyle</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Orientation</label>
-                    <select id="orientationFilter">
-                        <option value="all">All Orientations</option>
-                        <option value="horizontal">Horizontal</option>
-                        <option value="vertical">Vertical</option>
-                        <option value="square">Square</option>
-                        <option value="panoramic">Panoramic</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Proportions</label>
-                    <select id="proportionFilter">
-                        <option value="all">All Proportions</option>
-                        <option value="16:9">16:9 (Widescreen)</option>
-                        <option value="4:3">4:3 (Standard)</option>
-                        <option value="3:2">3:2 (Classic)</option>
-                        <option value="1:1">1:1 (Square)</option>
-                        <option value="9:16">9:16 (Portrait)</option>
-                        <option value="21:9">21:9 (Ultra-wide)</option>
-                </select>
-            </div>
-
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-apply" onclick="applyFilters()" style="flex: 1; background: var(--accent-gold); border: none; padding: 0.75rem; border-radius: 8px; color: white; cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;">Apply Filters</button>
-                <button class="btn btn-reset" onclick="resetFilters()" style="background: var(--light-tan); border: none; padding: 0.75rem 1.5rem; border-radius: 8px; color: var(--dark-brown); cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;">Reset</button>
-            </div>
-        </div>
-
-        <!-- Results Info -->
-        <div class="results-info">
-            <div class="results-count">
-                <strong id="photoCount">48</strong> photos found
-            </div>
-            <div class="sort-by">
-                <label>Sort by:</label>
-                <select id="sortBy" onchange="sortPhotos()">
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                    <option value="popular">Most Popular</option>
-                    <option value="name">Name (A-Z)</option>
-                </select>
-            </div>
-        </div>
+    <main>
+        <h2>Recent Photos</h2>
 
         <!-- Photo Grid -->
-        <div class="photo-grid" id="photoGrid">
-            <!-- Photos will be dynamically loaded here -->
+        <div class="photo-grid">
+            <!-- Photo 1 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Mountain Landscape">
+                <div class="photo-info">
+                    <h3>Mountain Serenity</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Landscape</span>
+                        <span class="tag">Nature</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 2 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400" alt="Forest Path">
+                <div class="photo-info">
+                    <h3>Woodland Trail</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Nature</span>
+                        <span class="tag">Green</span>
+                        <span class="tag">Vertical</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 3 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400" alt="Misty Forest">
+                <div class="photo-info">
+                    <h3>Morning Mist</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Moody</span>
+                        <span class="tag">Forest</span>
+                        <span class="tag">Square</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 4 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400" alt="Ocean Waves">
+                <div class="photo-info">
+                    <h3>Coastal Breeze</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Ocean</span>
+                        <span class="tag">Blue</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 5 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=400" alt="Sunset">
+                <div class="photo-info">
+                    <h3>Golden Hour</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Sunset</span>
+                        <span class="tag">Warm</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 6 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400" alt="Nature Close-up">
+                <div class="photo-info">
+                    <h3>Natural Details</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Macro</span>
+                        <span class="tag">Nature</span>
+                        <span class="tag">Square</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 7 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=400" alt="Desert Landscape">
+                <div class="photo-info">
+                    <h3>Desert Solitude</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Desert</span>
+                        <span class="tag">Minimal</span>
+                        <span class="tag">Vertical</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 8 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400" alt="Wildflowers">
+                <div class="photo-info">
+                    <h3>Wildflower Meadow</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Flowers</span>
+                        <span class="tag">Colorful</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 9 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400" alt="Mountain Lake">
+                <div class="photo-info">
+                    <h3>Alpine Reflection</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Water</span>
+                        <span class="tag">Blue</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 10 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" alt="Rocky Peak">
+                <div class="photo-info">
+                    <h3>Summit View</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Mountain</span>
+                        <span class="tag">Adventure</span>
+                        <span class="tag">Vertical</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div style="text-align: center; margin: 60px 0;">
+            <a href="library.html" style="display: inline-block; background: var(--accent-gold); color: white; padding: 18px 45px; text-decoration: none; font-size: 1.3rem; border-radius: 6px; box-shadow: 0 6px 20px rgba(201, 169, 97, 0.3); letter-spacing: 1px; transition: all 0.3s;">Browse Full Photo Library →</a>
         </div>
     </main>
 
@@ -452,133 +196,23 @@
         </div>
     </footer>
 
-    <script src="photos.js"></script>
     <script>
-        // Photo database - will be loaded from GitHub
-        let photos = [];
-        let filteredPhotos = [];
-
-        // Load photos from GitHub on page load
-        async function loadPhotos() {
-            try {
-                const loadedPhotos = await loadPhotosFromGitHub();
-                if (loadedPhotos && loadedPhotos.length > 0) {
-                    photos = loadedPhotos;
-                    filteredPhotos = [...photos];
-                    
-                    // Check for search parameter from homepage
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const searchParam = urlParams.get('search');
-                    if (searchParam) {
-                        document.getElementById('searchInput').value = searchParam;
-                        applyFilters();
-                    } else {
-                        displayPhotos(photos);
-                    }
-                } else {
-                    // Fallback to sample data if GitHub loading fails
-                    loadSampleData();
-                }
-            } catch (error) {
-                console.error('Error loading photos:', error);
-                loadSampleData();
+        // Search from header
+        function searchFromHeader() {
+            const searchTerm = document.getElementById('headerSearch').value;
+            if (searchTerm) {
+                window.location.href = `library.html?search=${encodeURIComponent(searchTerm)}`;
+            } else {
+                window.location.href = 'library.html';
             }
         }
 
-        // Fallback sample data
-        function loadSampleData() {
-            photos = [
-                { id: 1, title: "Mountain Serenity", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400", tags: ["landscape", "nature", "mountains"] },
-                { id: 2, title: "Woodland Trail", theme: "nature", color: "green", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400", tags: ["forest", "path", "trees"] },
-                { id: 3, title: "Morning Mist", theme: "nature", color: "neutral", orientation: "square", proportion: "1:1", src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400", tags: ["moody", "fog", "forest"] },
-                { id: 4, title: "Coastal Breeze", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "3:2", src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400", tags: ["ocean", "waves", "beach"] },
-                { id: 5, title: "Golden Hour", theme: "landscape", color: "warm", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=400", tags: ["sunset", "sky", "clouds"] },
-                { id: 6, title: "Natural Details", theme: "nature", color: "green", orientation: "square", proportion: "1:1", src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400", tags: ["macro", "plants", "details"] },
-                { id: 7, title: "Desert Solitude", theme: "landscape", color: "warm", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=400", tags: ["desert", "minimal", "sand"] },
-                { id: 8, title: "Wildflower Meadow", theme: "nature", color: "pink", orientation: "horizontal", proportion: "4:3", src: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400", tags: ["flowers", "field", "spring"] },
-                { id: 9, title: "Alpine Reflection", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400", tags: ["lake", "mountains", "reflection"] },
-                { id: 10, title: "Summit View", theme: "landscape", color: "cool", orientation: "vertical", proportion: "3:2", src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400", tags: ["mountain", "peak", "adventure"] },
-                { id: 11, title: "Urban Geometry", theme: "architecture", color: "neutral", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400", tags: ["building", "modern", "city"] },
-                { id: 12, title: "Autumn Colors", theme: "nature", color: "orange", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400", tags: ["fall", "leaves", "trees"] },
-            ];
-            filteredPhotos = [...photos];
-            displayPhotos(photos);
-        }
-
-        // Display photos
-        function displayPhotos(photosToDisplay) {
-            const grid = document.getElementById('photoGrid');
-            grid.innerHTML = '';
-            
-            photosToDisplay.forEach(photo => {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                card.innerHTML = `
-                    <img src="${photo.src}" alt="${photo.title}">
-                    <div class="photo-info">
-                        <h3>${photo.title}</h3>
-                        <div class="photo-meta">
-                            <span>${photo.orientation}</span>
-                            <span>${photo.proportion}</span>
-                        </div>
-                        <div class="photo-tags">
-                            ${photo.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            document.getElementById('photoCount').textContent = photosToDisplay.length;
-        }
-
-        // Apply filters
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const colorFilter = document.getElementById('colorFilter').value;
-            const themeFilter = document.getElementById('themeFilter').value;
-            const orientationFilter = document.getElementById('orientationFilter').value;
-            const proportionFilter = document.getElementById('proportionFilter').value;
-
-            filteredPhotos = photos.filter(photo => {
-                const matchesSearch = searchTerm === '' || 
-                    photo.title.toLowerCase().includes(searchTerm) ||
-                    photo.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-                
-                const matchesColor = colorFilter === 'all' || photo.color === colorFilter;
-                const matchesTheme = themeFilter === 'all' || photo.theme === themeFilter;
-                const matchesOrientation = orientationFilter === 'all' || photo.orientation === orientationFilter;
-                const matchesProportion = proportionFilter === 'all' || photo.proportion === proportionFilter;
-
-                return matchesSearch && matchesColor && matchesTheme && matchesOrientation && matchesProportion;
-            });
-
-            displayPhotos(filteredPhotos);
-        }
-
-        // Reset filters
-        function resetFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('colorFilter').value = 'all';
-            document.getElementById('themeFilter').value = 'all';
-            document.getElementById('orientationFilter').value = 'all';
-            document.getElementById('proportionFilter').value = 'all';
-            filteredPhotos = [...photos];
-            displayPhotos(filteredPhotos);
-        }
-
-        // Sort photos
-        function sortPhotos() {
-            const sortBy = document.getElementById('sortBy').value;
-            // Implement sorting logic here
-            displayPhotos(filteredPhotos);
-        }
-
-        // Initialize - Load photos from GitHub
-        loadPhotos();
-
-        // Real-time search
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        // Allow Enter key to search
+        document.getElementById('headerSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchFromHeader();
+            }
+        });
     </script>
 </body>
 </html>
