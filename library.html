@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Library - DRaz Photography</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/StevenMKay/DRaz-Photography/58aa7fbc87e097d961988c412141c83b74474ff5/Icons/Draz%20Site%20Icon.png">
+    <link rel="stylesheet" href="styles.css">
     <style>
+        /* Page-specific styling */
         * {
             margin: 0;
             padding: 0;
@@ -338,21 +341,18 @@
 
     <!-- Main Content -->
     <div class="container">
-        <div class="page-title">
-            <h1>Photo Library</h1>
-            <p style="color: #6b5d52; font-size: 1.1rem;">Search and filter thousands of professional stock photos</p>
-        </div>
+        <h2 style="text-align: center;">Photo Library</h2>
+        <p style="text-align: center; color: var(--medium-brown); font-size: 1.1rem; margin-bottom: 3rem;">Search and filter thousands of professional stock photos</p>
 
         <!-- Filter Section -->
-        <div class="filter-section">
+        <div class="filters">
             <h3>🔍 Search & Filter</h3>
-            <div class="filter-grid">
-                <div class="search-box">
-                    <label>Search</label>
-                    <input type="text" id="searchInput" placeholder="Search by keyword, theme, or description...">
-                </div>
+            <div class="filter-group">
+                <label>Search</label>
+                <input type="text" id="searchInput" placeholder="Search by keyword, theme, or description...">
+            </div>
 
-                <div class="filter-group">
+            <div class="filter-group">
                     <label>Color</label>
                     <select id="colorFilter">
                         <option value="all">All Colors</option>
@@ -410,13 +410,12 @@
                         <option value="1:1">1:1 (Square)</option>
                         <option value="9:16">9:16 (Portrait)</option>
                         <option value="21:9">21:9 (Ultra-wide)</option>
-                    </select>
-                </div>
+                </select>
+            </div>
 
-                <div class="filter-buttons">
-                    <button class="btn btn-apply" onclick="applyFilters()">Apply Filters</button>
-                    <button class="btn btn-reset" onclick="resetFilters()">Reset</button>
-                </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button class="btn btn-apply" onclick="applyFilters()" style="flex: 1; background: var(--accent-gold); border: none; padding: 0.75rem; border-radius: 8px; color: white; cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;">Apply Filters</button>
+                <button class="btn btn-reset" onclick="resetFilters()" style="background: var(--light-tan); border: none; padding: 0.75rem 1.5rem; border-radius: 8px; color: var(--dark-brown); cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;">Reset</button>
             </div>
         </div>
 
@@ -440,7 +439,7 @@
         <div class="photo-grid" id="photoGrid">
             <!-- Photos will be dynamically loaded here -->
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
