@@ -326,7 +326,7 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <div class="logo">DRaz Photography</div>
+            <div class="logo">David Raz Photography</div>
             <nav>
                 <a href="Index.html">Home</a>
                 <a href="library.html">Photo Library</a>
@@ -444,7 +444,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 DRaz Photography. All rights reserved.</p>
+        <p>&copy; 2025 David Raz Photography. All rights reserved.</p>
         <div>
             <a href="#about">About</a>
             <a href="#licensing">Licensing</a>
@@ -453,24 +453,58 @@
         </div>
     </footer>
 
+    <script src="photos.js"></script>
     <script>
-        // Sample photo data (replace with your actual data/API)
-        const photos = [
-            { id: 1, title: "Mountain Serenity", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400", tags: ["landscape", "nature", "mountains"] },
-            { id: 2, title: "Woodland Trail", theme: "nature", color: "green", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400", tags: ["forest", "path", "trees"] },
-            { id: 3, title: "Morning Mist", theme: "nature", color: "neutral", orientation: "square", proportion: "1:1", src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400", tags: ["moody", "fog", "forest"] },
-            { id: 4, title: "Coastal Breeze", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "3:2", src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400", tags: ["ocean", "waves", "beach"] },
-            { id: 5, title: "Golden Hour", theme: "landscape", color: "warm", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=400", tags: ["sunset", "sky", "clouds"] },
-            { id: 6, title: "Natural Details", theme: "nature", color: "green", orientation: "square", proportion: "1:1", src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400", tags: ["macro", "plants", "details"] },
-            { id: 7, title: "Desert Solitude", theme: "landscape", color: "warm", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=400", tags: ["desert", "minimal", "sand"] },
-            { id: 8, title: "Wildflower Meadow", theme: "nature", color: "pink", orientation: "horizontal", proportion: "4:3", src: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400", tags: ["flowers", "field", "spring"] },
-            { id: 9, title: "Alpine Reflection", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400", tags: ["lake", "mountains", "reflection"] },
-            { id: 10, title: "Summit View", theme: "landscape", color: "cool", orientation: "vertical", proportion: "3:2", src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400", tags: ["mountain", "peak", "adventure"] },
-            { id: 11, title: "Urban Geometry", theme: "architecture", color: "neutral", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400", tags: ["building", "modern", "city"] },
-            { id: 12, title: "Autumn Colors", theme: "nature", color: "orange", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400", tags: ["fall", "leaves", "trees"] },
-        ];
+        // Photo database - will be loaded from GitHub
+        let photos = [];
+        let filteredPhotos = [];
 
-        let filteredPhotos = [...photos];
+        // Load photos from GitHub on page load
+        async function loadPhotos() {
+            try {
+                const loadedPhotos = await loadPhotosFromGitHub();
+                if (loadedPhotos && loadedPhotos.length > 0) {
+                    photos = loadedPhotos;
+                    filteredPhotos = [...photos];
+                    
+                    // Check for search parameter from homepage
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const searchParam = urlParams.get('search');
+                    if (searchParam) {
+                        document.getElementById('searchInput').value = searchParam;
+                        applyFilters();
+                    } else {
+                        displayPhotos(photos);
+                    }
+                } else {
+                    // Fallback to sample data if GitHub loading fails
+                    loadSampleData();
+                }
+            } catch (error) {
+                console.error('Error loading photos:', error);
+                loadSampleData();
+            }
+        }
+
+        // Fallback sample data
+        function loadSampleData() {
+            photos = [
+                { id: 1, title: "Mountain Serenity", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400", tags: ["landscape", "nature", "mountains"] },
+                { id: 2, title: "Woodland Trail", theme: "nature", color: "green", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400", tags: ["forest", "path", "trees"] },
+                { id: 3, title: "Morning Mist", theme: "nature", color: "neutral", orientation: "square", proportion: "1:1", src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400", tags: ["moody", "fog", "forest"] },
+                { id: 4, title: "Coastal Breeze", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "3:2", src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400", tags: ["ocean", "waves", "beach"] },
+                { id: 5, title: "Golden Hour", theme: "landscape", color: "warm", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=400", tags: ["sunset", "sky", "clouds"] },
+                { id: 6, title: "Natural Details", theme: "nature", color: "green", orientation: "square", proportion: "1:1", src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400", tags: ["macro", "plants", "details"] },
+                { id: 7, title: "Desert Solitude", theme: "landscape", color: "warm", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=400", tags: ["desert", "minimal", "sand"] },
+                { id: 8, title: "Wildflower Meadow", theme: "nature", color: "pink", orientation: "horizontal", proportion: "4:3", src: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400", tags: ["flowers", "field", "spring"] },
+                { id: 9, title: "Alpine Reflection", theme: "landscape", color: "blue", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400", tags: ["lake", "mountains", "reflection"] },
+                { id: 10, title: "Summit View", theme: "landscape", color: "cool", orientation: "vertical", proportion: "3:2", src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400", tags: ["mountain", "peak", "adventure"] },
+                { id: 11, title: "Urban Geometry", theme: "architecture", color: "neutral", orientation: "vertical", proportion: "9:16", src: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400", tags: ["building", "modern", "city"] },
+                { id: 12, title: "Autumn Colors", theme: "nature", color: "orange", orientation: "horizontal", proportion: "16:9", src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400", tags: ["fall", "leaves", "trees"] },
+            ];
+            filteredPhotos = [...photos];
+            displayPhotos(photos);
+        }
 
         // Display photos
         function displayPhotos(photosToDisplay) {
@@ -541,8 +575,8 @@
             displayPhotos(filteredPhotos);
         }
 
-        // Initialize
-        displayPhotos(photos);
+        // Initialize - Load photos from GitHub
+        loadPhotos();
 
         // Real-time search
         document.getElementById('searchInput').addEventListener('input', applyFilters);
