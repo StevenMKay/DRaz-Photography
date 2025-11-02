@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRaz Photography - Professional Stock Photos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #f5f1ed;
+            color: #3d3935;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #4a3f35 0%, #6b5d52 100%);
+            padding: 30px 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f5f1ed;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        nav a {
+            color: #f5f1ed;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 5px;
+        }
+
+        nav a:hover {
+            color: #d4c5b9;
+            border-bottom: 2px solid #d4c5b9;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(61, 57, 53, 0.4), rgba(61, 57, 53, 0.4)), 
+                        url('https://images.unsplash.com/photo-1452457807411-4979b707c5be?w=1600') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            border-bottom: 8px solid #6b5d52;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #4a3f35;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: #8b7355;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #6b5d52;
+            margin-top: 20px;
+        }
+
+        /* Photo Gallery */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .photo-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-info {
+            padding: 15px;
+            background: white;
+        }
+
+        .photo-info h3 {
+            font-size: 1.1rem;
+            color: #4a3f35;
+            margin-bottom: 5px;
+        }
+
+        .photo-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: #8b7355;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+
+        /* CTA Button */
+        .cta-section {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #8b7355;
+            color: white;
+            padding: 18px 45px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #6b5d52;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #4a3f35;
+            color: #d4c5b9;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #d4c5b9;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav a {
+                margin: 0 15px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">DRaz Photography</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="library.html">Photo Library</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Capturing Moments</h1>
+            <p>Professional Stock Photography for Your Creative Projects</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="section-header">
+            <h2>Recent Photos</h2>
+            <p>Explore our latest collection of professional stock images</p>
+        </div>
+
+        <!-- Photo Grid -->
+        <div class="photo-grid">
+            <!-- Photo 1 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Mountain Landscape">
+                <div class="photo-info">
+                    <h3>Mountain Serenity</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Landscape</span>
+                        <span class="tag">Nature</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 2 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400" alt="Forest Path">
+                <div class="photo-info">
+                    <h3>Woodland Trail</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Nature</span>
+                        <span class="tag">Green</span>
+                        <span class="tag">Vertical</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 3 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400" alt="Misty Forest">
+                <div class="photo-info">
+                    <h3>Morning Mist</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Moody</span>
+                        <span class="tag">Forest</span>
+                        <span class="tag">Square</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 4 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400" alt="Ocean Waves">
+                <div class="photo-info">
+                    <h3>Coastal Breeze</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Ocean</span>
+                        <span class="tag">Blue</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 5 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=400" alt="Sunset">
+                <div class="photo-info">
+                    <h3>Golden Hour</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Sunset</span>
+                        <span class="tag">Warm</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 6 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400" alt="Nature Close-up">
+                <div class="photo-info">
+                    <h3>Natural Details</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Macro</span>
+                        <span class="tag">Nature</span>
+                        <span class="tag">Square</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 7 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?w=400" alt="Desert Landscape">
+                <div class="photo-info">
+                    <h3>Desert Solitude</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Desert</span>
+                        <span class="tag">Minimal</span>
+                        <span class="tag">Vertical</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 8 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400" alt="Wildflowers">
+                <div class="photo-info">
+                    <h3>Wildflower Meadow</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Flowers</span>
+                        <span class="tag">Colorful</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 9 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400" alt="Mountain Lake">
+                <div class="photo-info">
+                    <h3>Alpine Reflection</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Water</span>
+                        <span class="tag">Blue</span>
+                        <span class="tag">Horizontal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 10 -->
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" alt="Rocky Peak">
+                <div class="photo-info">
+                    <h3>Summit View</h3>
+                    <div class="photo-tags">
+                        <span class="tag">Mountain</span>
+                        <span class="tag">Adventure</span>
+                        <span class="tag">Vertical</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <a href="library.html" class="cta-button">Browse Full Photo Library →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 DRaz Photography. All rights reserved.</p>
+        <div>
+            <a href="#about">About</a>
+            <a href="#licensing">Licensing</a>
+            <a href="#contact">Contact</a>
+            <a href="#terms">Terms of Use</a>
+        </div>
+    </footer>
+</body>
+</html>
