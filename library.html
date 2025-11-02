@@ -351,7 +351,7 @@
         <div class="header-content">
             <div class="logo">David Raz Photography</div>
             <nav>
-                <a href="index.html">Home</a>
+                <a href="Index.html">Home</a>
                 <a href="library.html">Photo Library</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
@@ -503,6 +503,12 @@
                 card.className = 'photo-card';
                 card.innerHTML = `
                     <img src="${photo.src}" alt="${photo.title}">
+                    <div class="photo-share-overlay">
+                        <button onclick="sharePhotoEmail('${photo.title}', this)" title="Share via Email">📧</button>
+                        <button onclick="sharePhotoFacebook('${photo.title}', this)" title="Share on Facebook">📘</button>
+                        <button onclick="sharePhotoTwitter('${photo.title}', this)" title="Share on Twitter">🐦</button>
+                        <button onclick="copyPhotoLink(this)" title="Copy Link">🔗</button>
+                    </div>
                     <div class="photo-info">
                         <h3>${photo.title}</h3>
                         <div class="photo-meta">
@@ -565,7 +571,45 @@
         // Real-time search
         document.getElementById('searchInput').addEventListener('input', applyFilters);
         
-        // Social sharing functions
+        // Photo-specific sharing functions
+        function sharePhotoEmail(photoTitle, button) {
+            const photoCard = button.closest('.photo-card');
+            const photoImg = photoCard.querySelector('img');
+            const photoSrc = photoImg.src;
+            
+            const subject = encodeURIComponent(`Check out this photo: ${photoTitle}`);
+            const body = encodeURIComponent(`I found this amazing photo "${photoTitle}" at DRaz Photography:\n\n${window.location.href}\n\nPhoto: ${photoSrc}`);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+        
+        function sharePhotoFacebook(photoTitle, button) {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+        }
+        
+        function sharePhotoTwitter(photoTitle, button) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`Check out "${photoTitle}" at DRaz Photography!`);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPhotoLink(button) {
+            const photoCard = button.closest('.photo-card');
+            const photoImg = photoCard.querySelector('img');
+            const photoSrc = photoImg.src;
+            
+            navigator.clipboard.writeText(photoSrc).then(() => {
+                // Visual feedback
+                button.textContent = '✅';
+                setTimeout(() => {
+                    button.textContent = '🔗';
+                }, 1500);
+            }).catch(err => {
+                alert('Photo link: ' + photoSrc);
+            });
+        }
+        
+        // Social sharing functions (for page sharing)
         function shareEmail() {
             const subject = encodeURIComponent('Check out DRaz Photography Library!');
             const body = encodeURIComponent('Browse professional stock photos at DRaz Photography: ' + window.location.href);
