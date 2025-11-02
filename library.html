@@ -310,10 +310,6 @@
                 padding: 20px;
             }
 
-            .filter-grid {
-                grid-template-columns: 1fr;
-            }
-
             .results-info {
                 flex-direction: column;
                 gap: 15px;
@@ -321,6 +317,30 @@
 
             .photo-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Mobile-specific improvements */
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+                margin: 0 8px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -344,78 +364,37 @@
         <h2 style="text-align: center;">Photo Library</h2>
         <p style="text-align: center; color: var(--medium-brown); font-size: 1.1rem; margin-bottom: 3rem;">Search and filter thousands of professional stock photos</p>
 
-        <!-- Filter Section -->
-        <div class="filters">
-            <h3>🔍 Search & Filter</h3>
-            <div class="filter-group">
-                <label>Search</label>
-                <input type="text" id="searchInput" placeholder="Search by keyword, theme, or description...">
-            </div>
-
-            <div class="filter-group">
-                    <label>Color</label>
-                    <select id="colorFilter">
-                        <option value="all">All Colors</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                        <option value="red">Red</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="orange">Orange</option>
-                        <option value="purple">Purple</option>
-                        <option value="pink">Pink</option>
-                        <option value="warm">Warm Tones</option>
-                        <option value="cool">Cool Tones</option>
-                        <option value="neutral">Neutral</option>
-                        <option value="black-white">Black & White</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Theme</label>
-                    <select id="themeFilter">
-                        <option value="all">All Themes</option>
-                        <option value="nature">Nature</option>
-                        <option value="landscape">Landscape</option>
-                        <option value="portrait">Portrait</option>
-                        <option value="urban">Urban</option>
-                        <option value="abstract">Abstract</option>
-                        <option value="wildlife">Wildlife</option>
-                        <option value="architecture">Architecture</option>
-                        <option value="food">Food</option>
-                        <option value="travel">Travel</option>
-                        <option value="business">Business</option>
-                        <option value="technology">Technology</option>
-                        <option value="lifestyle">Lifestyle</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Orientation</label>
-                    <select id="orientationFilter">
-                        <option value="all">All Orientations</option>
-                        <option value="horizontal">Horizontal</option>
-                        <option value="vertical">Vertical</option>
-                        <option value="square">Square</option>
-                        <option value="panoramic">Panoramic</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Proportions</label>
-                    <select id="proportionFilter">
-                        <option value="all">All Proportions</option>
-                        <option value="16:9">16:9 (Widescreen)</option>
-                        <option value="4:3">4:3 (Standard)</option>
-                        <option value="3:2">3:2 (Classic)</option>
-                        <option value="1:1">1:1 (Square)</option>
-                        <option value="9:16">9:16 (Portrait)</option>
-                        <option value="21:9">21:9 (Ultra-wide)</option>
+        <!-- Filter Section - Simplified Horizontal -->
+        <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 40px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 15px;">
+                <input type="text" id="searchInput" placeholder="🔍 Search photos..." style="flex: 1; min-width: 250px; padding: 12px 15px; border: 2px solid #d4c5b9; border-radius: 8px; font-size: 1rem; font-family: 'Georgia', serif;">
+                
+                <select id="colorFilter" onchange="applyFilters()" style="padding: 12px 15px; border: 2px solid #d4c5b9; border-radius: 8px; font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;">
+                    <option value="all">All Colors</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="red">Red</option>
+                    <option value="warm">Warm</option>
+                    <option value="cool">Cool</option>
                 </select>
-            </div>
-
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-apply" onclick="applyFilters()" style="flex: 1; background: var(--accent-gold); border: none; padding: 0.75rem; border-radius: 8px; color: white; cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;">Apply Filters</button>
-                <button class="btn btn-reset" onclick="resetFilters()" style="background: var(--light-tan); border: none; padding: 0.75rem 1.5rem; border-radius: 8px; color: var(--dark-brown); cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;">Reset</button>
+                
+                <select id="themeFilter" onchange="applyFilters()" style="padding: 12px 15px; border: 2px solid #d4c5b9; border-radius: 8px; font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;">
+                    <option value="all">All Themes</option>
+                    <option value="nature">Nature</option>
+                    <option value="landscape">Landscape</option>
+                    <option value="portrait">Portrait</option>
+                    <option value="urban">Urban</option>
+                    <option value="wildlife">Wildlife</option>
+                </select>
+                
+                <select id="orientationFilter" onchange="applyFilters()" style="padding: 12px 15px; border: 2px solid #d4c5b9; border-radius: 8px; font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;">
+                    <option value="all">All Orientations</option>
+                    <option value="horizontal">Horizontal</option>
+                    <option value="vertical">Vertical</option>
+                    <option value="square">Square</option>
+                </select>
+                
+                <button onclick="resetFilters()" style="padding: 12px 20px; background: #8b7355; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;">Reset</button>
             </div>
         </div>
 
@@ -538,7 +517,6 @@
             const colorFilter = document.getElementById('colorFilter').value;
             const themeFilter = document.getElementById('themeFilter').value;
             const orientationFilter = document.getElementById('orientationFilter').value;
-            const proportionFilter = document.getElementById('proportionFilter').value;
 
             filteredPhotos = photos.filter(photo => {
                 const matchesSearch = searchTerm === '' || 
@@ -548,9 +526,8 @@
                 const matchesColor = colorFilter === 'all' || photo.color === colorFilter;
                 const matchesTheme = themeFilter === 'all' || photo.theme === themeFilter;
                 const matchesOrientation = orientationFilter === 'all' || photo.orientation === orientationFilter;
-                const matchesProportion = proportionFilter === 'all' || photo.proportion === proportionFilter;
 
-                return matchesSearch && matchesColor && matchesTheme && matchesOrientation && matchesProportion;
+                return matchesSearch && matchesColor && matchesTheme && matchesOrientation;
             });
 
             displayPhotos(filteredPhotos);
@@ -562,7 +539,6 @@
             document.getElementById('colorFilter').value = 'all';
             document.getElementById('themeFilter').value = 'all';
             document.getElementById('orientationFilter').value = 'all';
-            document.getElementById('proportionFilter').value = 'all';
             filteredPhotos = [...photos];
             displayPhotos(filteredPhotos);
         }
